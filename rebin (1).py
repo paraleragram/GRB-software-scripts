@@ -3,28 +3,9 @@
 
 #  
 
-# In[4]:
-
-
 import pandas as pd
 import numpy as np
 import math
-
-
-# In[50]:
-
-
-lc_name = 'kw20230307_56645_nns.thr'
-df = pd.read_csv(lc_name, sep='\s+',header = None)
-df.columns = ['T1', 'dT', 'G2', 'G3']
-T2 = [df.T1[i] + 0.002 for i in range(len(df))]
-df.insert (1, 'T2', T2)
-df['G2G3'] = df.G2 + df.G3
-df
-
-
-# In[72]:
-
 
 def rebin(new_delta_t: float, start_bin: list, end_bin: list, cnt: list, grb_id: str, channel: str):
     """
@@ -133,45 +114,3 @@ def rebin(new_delta_t: float, start_bin: list, end_bin: list, cnt: list, grb_id:
             break
                    
     f.close()
-
-
-# In[73]:
-
-
-rebin(0.016, df.T1, df.T2, df.G2, '5379', 'G2')
-
-
-# In[70]:
-
-
-lc_name = '5379_16_G2.thc'
-df1 = pd.read_csv(lc_name, sep='\s+',header = None)
-df1.columns = ['T1', 'T2', 'G2']
-df1
-
-
-# In[35]:
-
-
--0.512+1.000
-
-
-# In[30]:
-
-
-timescale = np.arange(0.003, 1.024, 0.001)
-for window in 'G2', 'G3', 'G2G3':
-    for k in timescale:
-        print(k)
-        rebin(k, df.T1, df.T2, df[window], '5379', window)
-
-
-# In[51]:
-
-
-i = 0
-while df.T1[i] <df.T1[4091]:
-    if round(df.T1[i+1] - df.T1[i], 3) != 0.002:
-        print(df.T1[i+1] - df.T1[i], i)  
-    i+=1
-
