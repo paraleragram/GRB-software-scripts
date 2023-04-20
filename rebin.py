@@ -3,16 +3,9 @@
 
 #  
 
-# In[5]:
-
-
 import pandas as pd
 import numpy as np
 import math
-
-
-# In[14]:
-
 
 def rebin(new_delta_t: float, start_bin: list, end_bin: list, cnt: list, grb_id: str, channel: str):
     """
